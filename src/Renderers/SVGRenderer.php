@@ -35,14 +35,36 @@ class SVGRenderer implements Renderer
             if ($forme instanceof Ligne) 
             {
                 $line = new SVGLine(
-                    $forme->getPoint1()->getX1(),
-                    $forme->getPoint1()->getY1(),
-                    $forme->getPoint2()->getX2(),
-                    $forme->getPoint2()->getY2()
+                    $forme->getPoint1()->getx(),
+                    $forme->getPoint1()->gety(),
+                    $forme->getPoint2()->getx(),
+                    $forme->getPoint2()->gety()                    
                 );
-                $line->setStyle('stroke', $forme->getCouleur()); 
+                $line->setStyle('fill', $forme->getCouleur()); 
                 $doc->addChild($line);
             } 
+            elseif ($forme instanceof Rectangle) 
+            {
+                $rectangle = new SVGRect(
+                    $forme->getPoint()->getX(),
+                    $forme->getPoint()->getY(),
+                    $forme->getWidth(),
+                    $forme->getHeight()
+                );
+                $rectangle->setStyle('fill', $forme->getCouleur());
+                $doc->addChild($rectangle);
+            }
+            elseif ($forme instanceof Polygone)
+            {
+                $points = $forme->getPoints();
+                $polygone = new SVGPolygon();
+                    foreach ($points as $point) 
+                    {
+                        $polygone->addPoint($point->getX(), $point->getY());
+                    }
+                $polygone->setStyle('fill', $forme->getCouleur());
+                $doc->addChild($polygone);
+            }
             elseif ($forme instanceof Cercle) 
             {
                 $circle = new SVGCircle(

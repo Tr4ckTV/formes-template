@@ -12,11 +12,11 @@ class Ligne extends Forme {
         $this->point2 = $point2;
     }
 
-    public function getpoint1(): Point {
+    public function getPoint1(): Point {
         return $this->point1;
     }
 
-    public function getpoint2(): point {
+    public function getPoint2(): Point {
         return $this->point2;
     }
 }
