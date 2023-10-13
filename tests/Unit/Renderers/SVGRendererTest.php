@@ -5,6 +5,7 @@ use Opmvpc\Formes\Cercle;
 use Opmvpc\Formes\Ligne;
 use Opmvpc\Formes\Point;
 use Opmvpc\Formes\Polygone;
+use Opmvpc\Formes\Ellipse;
 use Opmvpc\Formes\Rectangle;
 use Opmvpc\Formes\Renderers\SVGRenderer;
 
@@ -42,6 +43,16 @@ it('can render a canvas with a line, a rectangle and a circle', function () {
 
     $this->assertEquals('<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" style="fill: #FFFFFF"><rect x="0" y="0" width="500" height="500" /><line x1="1" y1="1" x2="1" y2="500" style="fill: #0000FF" /><rect x="50" y="50" width="250" height="400" style="fill: #FF0000" /><circle cx="250" cy="250" r="150" style="fill: #00FF00" /></svg>', $renderer->render());
 });
+
+it('can render an ellipse', function () {
+    $canvas = new Canvas(500, 500);
+    $canvas->add(new Ellipse(new Point(250, 250), 150, 100, '#00FF00'));
+
+    $renderer = new SVGRenderer($canvas);
+
+    $this->assertEquals('<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" style="fill: #FFFFFF"><rect x="0" y="0" width="500" height="500" /><ellipse cx="250" cy="250" rx="150" ry="100" style="fill: #00FF00" /></svg>', $renderer->render());
+});
+
 
 it('can render a red triangle', function () {
     $canvas = new Canvas(500, 500);

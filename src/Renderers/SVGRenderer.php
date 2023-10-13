@@ -5,12 +5,14 @@ namespace Opmvpc\Formes\Renderers;
 use Opmvpc\Formes\Canvas;
 use Opmvpc\Formes\Rectangle;
 use Opmvpc\Formes\Cercle;
+use Opmvpc\Formes\Ellipse;
 use Opmvpc\Formes\Ligne;
 use Opmvpc\Formes\Polygone;
 use SVG\Nodes\Shapes\SVGCircle;
 use SVG\Nodes\Shapes\SVGLine;
 use SVG\Nodes\Shapes\SVGPolygon;
 use SVG\Nodes\Shapes\SVGRect;
+use SVG\Nodes\Shapes\SVGEllipse;
 use SVG\SVG;
 
 class SVGRenderer implements Renderer
@@ -74,6 +76,17 @@ class SVGRenderer implements Renderer
                 );
                 $circle->setStyle('fill', $forme->getCouleur());
                 $doc->addChild($circle);
+            }
+            elseif ($forme instanceof Ellipse) 
+            {
+                $ellipse = new SVGEllipse(
+                    $forme->getCentre()->getX(),
+                    $forme->getCentre()->getY(),
+                    $forme->getRayonX(),
+                    $forme->getRayonY()
+                );
+                $ellipse->setStyle('fill', $forme->getCouleur());
+                $doc->addChild($ellipse);
             }
         }
 
